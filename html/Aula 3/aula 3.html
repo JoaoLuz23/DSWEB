@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Atividade 3</title>
+<style>
+    form {
+        border: 2px solid black; 
+        padding: 20px;        
+        width: 300px;          
+        margin: auto;           
+        border-radius: 10px;    
+    }
+</style>
+</head>
+<body>
+
+<center><h1>Atividade 3 </h1></center>
+<br>
+
+<center>
+<form action="processa.php" method="GET">
+    <label for="nome">Nome completo:</label>
+    <input type="text" maxlength="50" id="nome" placeholder="Digite seu nome" name="nome"><br><br>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" placeholder="Coloque seu email" name="email"><br><br>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" placeholder="Senha aqui" name="password" required><br><br>
+
+    <label for="number">Idade:</label>
+    <input type="number" id="idade" placeholder="Idade" name="idade" min="1" max="120" required><br><br>
+
+    <input type="submit" value="Enviar">
+</form>
+</center>
+
+</body>
+</html>

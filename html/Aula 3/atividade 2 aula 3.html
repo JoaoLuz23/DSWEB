@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        center {
+            border: 2px solid black; 
+        padding: 20px;        
+        width: 300px;          
+        margin: auto;           
+        border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <input type="radio" id="opcao1" name="escolha" value="1">
+        <label for="opcao1">Feminino</label>
+        <input type="radio" id="opcao2" name="escolha" value="2" checked>
+        <label for="opcao2">Masculino</label>
+        <input type="radio" id="opcao3" name="escolha" value="3">
+        <label for="opcao3">Outro</label>
+        <br>
+        <input type="checkbox" id="interesses1" name="interesses" value="interesses s">
+        <label for="interesses1">Artes</label>
+        <input type="checkbox" id="interesses2" name="interesses" value="interesses" checked>
+        <label for="interesses2">Ciencias</label>
+        <input type="checkbox" id="interesses3" name="interesses" value="interesses s">
+        <label for="interesses3">Esportes</label>
+        <input type="checkbox" id="interesses4" name="interesses" value="interesses" checked>
+        <label for="interesses4">Musica</label>
+        <br>
+        <label for="carros">Escolha um carro:</label>
+        <select id="carros" name="carros">
+            <optgroup label="Sedans">
+                <option value="corolla">Toyota Corolla</option>
+                <option value="civic">Honda Civic</option>
+            </optgroup>
+            <optgroup label="SUVs">
+                <option value="crv">Honda CR-V</option>
+                <option value="rav4">Toyota RAV4</option>
+            </optgroup>
+        </select>
+        <br>
+        <input type="submit">
+    </center>
+</body>
+</html>
