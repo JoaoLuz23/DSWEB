@@ -1,0 +1,30 @@
+
+
+.quadrado1{
+    width: 120px;
+    height:40px;
+    margin:5px;
+    background-color: yellow;
+    display: inline-block;
+}
+.quadrado2{
+    width: 120px;
+    height:40px;
+    margin:5px;
+    background-color: blue;
+    display: inline-block;
+}
+.quadrado3{
+    width: 120px;
+    height:40px;
+    margin:5px;
+    background-color: red;
+    display: inline-block;
+}
+.quadrado4{
+    width: 120px;
+    height:40px;
+    margin:5px;
+    background-color: orange;
+    display: inline-block;
+}

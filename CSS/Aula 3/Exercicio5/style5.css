@@ -1,0 +1,24 @@
+.informacao1{
+    width: 200px;
+    height: 250px;
+    padding: 150px;
+    margin: 10px;
+    display:inline-block;
+    background-color: blue;
+}
+.informacao2{
+    width: 200px;
+    height: 250px;
+    padding: 11px;
+    margin: 10px;
+    display:inline-block;
+    background-color: red;
+}
+.informacao3{
+    width: 200px;
+    height: 250px;
+    padding: 45px;
+    margin: 100px;
+    display:inline-block;
+    background-color: yellow;
+}
