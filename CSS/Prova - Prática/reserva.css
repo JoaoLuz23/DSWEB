@@ -1,0 +1,96 @@
+.titulo{
+    background-color: darkred; 
+    color: orange; 
+    align-content:center;  
+    text-align: center; 
+    width:100%;
+    height:60px;
+    position:fixed;
+}
+ 
+
+
+.Promocao{
+   
+display: inline-block;
+background-color:bisque;
+width:300px;
+height:100px;
+padding:5px;
+text-align: center;
+margin-left:70px;
+align-content:center;
+
+}
+.cardapio{
+    display: inline-block;
+background-color:bisque;
+width:300px;
+height:100px;
+padding:5px;
+text-align: center;
+margin-left:10px;
+align-content:center;
+
+}
+.reserva{
+    display: inline-block;
+    background-color:bisque;
+    width:300px;
+    height:100px;
+    padding:5px;
+    text-align: center;
+    margin-left:75px;
+    align-content:center;
+    
+}
+.Portal{
+
+    display: inline-block;
+background-color:bisque;
+width:300px;
+height:100px;
+padding:5px;
+text-align: center;
+margin-left:70px;
+align-content:center;
+
+}   
+
+
+
+a{
+    text-decoration: none;
+    color:brown;
+    font-size:50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.email{
+    padding:5px;    
+    border:1px;
+    margin:5px;
+    border-color: red;
+}
+
+.reserva1{
+    background-color: coral;
+    border:50px;
+
+}
+.feedback{
+    padding:5px;    
+    border:1px;
+    margin:5px;
+    border-color: red;
+}
+
+.nome{
+    background-color: coral;
+    border:50px;
+
+}
+
+.submit:hover{
+    color:blueviolet;
+}

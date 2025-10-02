@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="promocao.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="titulo">
+        <h2>Sabor & Arte</h2>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <div class="cardapio">
+            <a href="cardapio.html">Cardapio</a>    
+        </div>
+        <div class="Promocao">  
+           <a href="Promocao.html">Promoção</a>
+        </div>
+        <div class="reserva">
+        <a href="Reserva.html">Reserva</a>
+        </div>
+        <div class="Portal">
+            <a href="index.html">Portal</a>
+        </div>
+        <br>
+        <br>
+        <br>
+
+<div class="reserva1">
+
+<center>
+ <h3>Faça Sua Reserva!</h3>
+
+        <form action="processa.php" method="GET">
+            <label for="nome">Nome completo:</label>
+            <input type="text" class="nome" maxlength="50" id="nome" placeholder="Digite seu nome" name="nome" required><br><br>
+        
+            <label for="email">E-mail:</label>
+            <input type="email" class="email" id="email" placeholder="Coloque seu email" name="email" required><br><br>
+        
+            <label for="number">Numero:</label>
+            <input type="number" id="password" class="number" placeholder="(xx) xxxxx-xxxx" name="Numero" required><br><br>
+        
+            <label for="number">Quantidade de pessoas   :</label>
+            <input type="number" id="idade" class="qtd" placeholder="Quantidade de pessoas" name="Quantidade de pessoas" min="1" max="20" required>
+            <br>
+            <br>
+            <textarea id="feedback" name="feedback" placeholder="feedback" rows="6" cols="50" max-length="300" required>
+            </textarea>
+            <br>
+
+            <input type="submit" class="submit" value="Enviar">
+        </form>
+
+    </center>
+    
+   </div>
+  </body>
