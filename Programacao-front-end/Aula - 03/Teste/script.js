@@ -1,5 +1,5 @@
 var contadorItem = 0
-    
+
 
 function add(){
 
@@ -7,7 +7,7 @@ contadorItem ++ //incrementa o contador de item
 
 
 let novoItem = document.createElement('li');//crio o item
-novoItem.textContent = contadorItem + " - " +  prompt ("Digite o nome da tarefa")//adiciono texto ao item
+let novaTarefa//adiciono texto ao item
 novoItem.setAttribute("id", contadorItem) // Atributo de Id
 
 let botaoRemover = document.createElement('button');
