@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Cadastro de Lugares</title>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="categoria.html">Países</a></li>
+        
+    </ul>
+
+
+    <div class="formulario">
+        <h3>Cadastro de Lugar</h3>
+        
+        <label for="nome">Nome do Lugar</label>
+        <input type="text" id="nome" name="nome">
+
+        <label for="categoria_id">País</label>
+        <select id="categoria_id" name="categoria">
+            <option value="">Carregando...</option>
+        </select>
+
+        <button type="button" id="botaoEnviar" class="button button-enviar">Cadastrar</button>
+    </div>
+
+    <div id="resposta" class="tabela"></div>
+
+    <script src="./assets/js/itens.js"></script>
+</body>
+</html>
