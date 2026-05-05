@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login por Voz e Teclado</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: #000 !important;
+            color: #FFD700 !important; /* Amarelo Ouro */
+        }
+
+        .contraste {
+            background: #000 !important;
+            color: #FFD700 !important;
+        }
+
+        .contraste * {
+            background: #000 !important;
+            color: #FFD700 !important;
+            border-color: #FFD700 !important;
+        }
+
+        input {
+            background: #111 !important;
+            color: #FFD700 !important;
+            border: 1px solid #FFD700 !important;
+        }
+
+        button {
+            background: #FFD700 !important;
+            color: #000 !important;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body class="contraste flex items-center justify-center">
+
+<main class="w-full max-w-md p-6 rounded-xl border-2 border-[#FFD700]">
+
+    <h1 class="text-3xl font-bold mb-4">Acesse sua conta</h1>
+
+    <label class="text-sm font-bold uppercase tracking-widest">Código de acesso</label>
+
+    <input id="codigo"
+        class="w-full mt-2 p-4 rounded-lg text-2xl text-center"
+        placeholder="fale ou digite..."
+        type="text"
+        autocomplete="off"
+    />
+
+    <button id="btnEntrar"
+        class="w-full mt-6 p-4 rounded-lg font-black uppercase tracking-tighter">
+        Entrar no Sistema
+    </button>
+
+    <p class="mt-4 text-center text-xs opacity-50 uppercase">Escuta ativa habilitada</p>
+
+</main>
+
+<script>
+    const input = document.getElementById("codigo");
+    const botao = document.getElementById("btnEntrar");
+
+    // --- FUNÇÃO CENTRAL DE LOGIN ---
+    function validarLogin(texto) {
+        const valor = texto
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") // remove acentos
+            .replace(/\s/g, ""); // remove espaços
+
+        // 👤 USUÁRIO (Código: 5221)
+        if (valor.includes("5221") || valor.includes("123")) {
+            window.location.href = "index.html";
+            return true;
+        }
+
+        // 👨‍💼 GERENTE (Código: 4882)
+        if (valor.includes("4882") || valor.includes("321") || valor.includes("enviar")) {
+            window.location.href = "menu.html";
+            return true;
+        }
+
+        return false;
+    }
+
+    // --- LOGICA DE VOZ (Speech Recognition) ---
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = "pt-BR";
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onresult = function(event) {
+            let textoVoz = "";
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                textoVoz += event.results[i][0].transcript;
+            }
+
+            input.value = textoVoz;
+            validarLogin(textoVoz); // Tenta logar automaticamente pela voz
+        };
+
+        recognition.onend = () => recognition.start(); // Mantém o microfone ligado
+        recognition.start();
+    }
+
+    // --- LOGIN POR CLIQUE NO BOTÃO ---
+    botao.addEventListener("click", function() {
+        if (!validarLogin(input.value)) {
+            alert("Código incorreto ou não reconhecido.");
+        }
+    });
+
+    // --- LOGIN AO APERTAR 'ENTER' NO TECLADO ---
+    input.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            if (!validarLogin(input.value)) {
+                alert("Código incorreto.");
+            }
+        }
+    });
+</script>
+
+</body>
+</html> 

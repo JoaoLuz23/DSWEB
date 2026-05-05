@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style>
+        .alto-contraste {
+            background: black !important;
+            color: yellow !important;
+        }
+
+        .alto-contraste * {
+            background: black !important;
+            color: yellow !important;
+            border-color: yellow !important;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400;
+        }
+
+        body {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 🎵 BARRAS SONORAS OTIMIZADAS */
+        .wave-container {
+            display: flex;
+            gap: 6px;
+            align-items: center; /* Centraliza verticalmente para a onda expandir para os dois lados */
+            justify-content: center;
+            height: 120px;
+            margin-bottom: 2rem;
+        }
+
+        .sound-bar {
+            width: 8px;
+            height: 10px;
+            background: #fcd400;
+            border-radius: 20px;
+            transition: height 0.05s ease-out; /* Transição rápida para fluidez */
+            box-shadow: 0 0 10px rgba(252, 212, 0, 0.2);
+        }
+    </style>
+
+    <script>
+        window.onload = () => {
+            aplicarPreferencias();
+            iniciarVisualSom();
+            iniciarReconhecimentoVoz();
+        };
+
+        function aplicarPreferencias() {
+            const contraste = localStorage.getItem("contraste");
+            const fonte = localStorage.getItem("fonte");
+            if (contraste === "alto") document.body.classList.add("alto-contraste");
+            if (fonte) document.body.style.fontSize = fonte + "px";
+        }
+
+        function voltarPagina() {
+            window.history.length > 1 ? window.history.back() : window.location.href = "index.html";
+        }
+
+        // --- LÓGICA DO VISUALIZADOR DE ÁUDIO ---
+        async function iniciarVisualSom() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const analyser = audioContext.createAnalyser();
+                const source = audioContext.createMediaStreamSource(stream);
+
+                source.connect(analyser);
+                analyser.fftSize = 128; // Define a sensibilidade das frequências
+
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+                const bars = document.querySelectorAll(".sound-bar");
+
+                function animar() {
+                    analyser.getByteFrequencyData(dataArray);
+
+                    bars.forEach((bar, i) => {
+                        // Mapeia os dados do áudio para as barras
+                        const valor = dataArray[i % bufferLength] || 0;
+                        
+                        // Cálculo da altura: valor base + (intensidade do som)
+                        // Criamos um efeito de curva (as do meio sobem mais)
+                        const indiceMeio = bars.length / 2;
+                        const fatorProximidade = 1 - (Math.abs(i - indiceMeio) / indiceMeio);
+                        
+                        let altura = (valor / 255) * 100 * (0.4 + fatorProximidade) + 8;
+                        
+                        bar.style.height = `${altura}px`;
+                        bar.style.opacity = 0.5 + (valor / 255); // Brilha conforme o volume
+                    });
+
+                    requestAnimationFrame(animar);
+                }
+                animar();
+            } catch (erro) {
+                console.error("Erro ao acessar microfone para o visualizador:", erro);
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-black">
+
+    <header class="bg-[#001736] flex justify-between items-center px-6 h-20 fixed top-0 w-full z-50">
+        <button onclick="voltarPagina()" class="text-[#fcd400] flex items-center gap-2">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#fcd400]">menu</span>
+            <span class="text-[#fcd400] text-[22px] font-bold">VOICE ASSISTANT</span>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col pt-24 pb-28 px-6 max-w-2xl mx-auto w-full justify-center">
+        
+        <h2 class="text-4xl font-bold text-center mb-10 text-yellow-500">Ouvindo...</h2>
+
+        <div class="wave-container" id="wave-container">
+            <div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div>
+            <div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div>
+            <div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div>
+            <div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div>
+            <div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div>
+        </div>
+
+        <section class="bg-gray-100 rounded-3xl p-8 mb-8 flex justify-center shadow-inner">
+            <p class="text-xl italic text-gray-500">Fale agora...</p>
+        </section>
+
+        <section>
+            <label class="font-bold text-gray-700">Transcrição em tempo real:</label>
+            <div class="bg-white rounded-xl p-6 mt-2 border border-gray-200 min-h-[100px] shadow-sm">
+                <p id="transcricao" class="text-xl italic text-blue-900"></p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function iniciarReconhecimentoVoz() {
+            const transcricaoElemento = document.getElementById("transcricao");
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                alert("Seu navegador não suporta reconhecimento de voz.");
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = "pt-BR";
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            let textoFinal = "";
+            let redirecionado = false;
+
+            recognition.onresult = (event) => {
+                let textoParcial = "";
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript.toLowerCase();
+
+                    if (event.results[i].isFinal) {
+                        textoFinal += transcript + " ";
+
+                        // --- LÓGICA DE REDIRECIONAMENTO ---
+                        if (!redirecionado) {
+                            if (transcript.includes("uma senhora caiu") || transcript.includes("setor a")) {
+                                redirecionado = true;
+                                window.location.href = "indexia.html";
+                            } else if (transcript.includes("excluindo") || transcript.includes("me excluindo")) {
+                                redirecionado = true;
+                                window.location.href = "indexia2.html";
+                            } else if (transcript.includes("enviar")) {
+                                redirecionado = true;
+                                window.location.href = "indexia.html";
+                            }
+                        }
+                    } else {
+                        textoParcial += transcript;
+                    }
+                }
+                transcricaoElemento.textContent = textoFinal + textoParcial;
+            };
+
+            recognition.onend = () => {
+                if (!redirecionado) recognition.start(); // Reinicia se não mudou de página
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Erro no reconhecimento:", event.error);
+            };
+
+            recognition.start();
+        }
+    </script>
+
+</body>
+</html>

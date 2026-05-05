@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Painel do Administrador - Central</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-gold": "#FFD700",
+                        "surface-container": "#1f1f1f",
+                        "surface-container-low": "#1b1b1b",
+                        "surface-container-lowest": "#0e0e0e",
+                        "outline": "#999077"
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Lexend', sans-serif; background-color: #000; color: #e2e2e2; }
+        .sidebar-link { transition: all 0.2s ease; border-left: 3px solid transparent; }
+        .sidebar-link:hover { background: #1a1a1a; color: #FFD700; }
+        .sidebar-link.active { background: #1a1a1a; color: #FFD700; border-left-color: #FFD700; }
+        .text-glow { text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
+    </style>
+</head>
+<body class="min-h-screen flex">
+
+<aside class="fixed left-0 top-0 h-full w-64 bg-[#0a0a0a] border-r border-[#1f1f1f] z-50 flex flex-col">
+    <div class="p-6 border-b border-[#1f1f1f]">
+        <div class="flex items-center gap-3 text-primary-gold">
+            <span class="material-symbols-outlined text-3xl">gavel</span>
+            <h1 class="font-bold uppercase tracking-tighter leading-tight">Painel de<br>Controle</h1>
+        </div>
+    </div>
+    
+    <nav class="flex-1 px-2 py-6 flex flex-col gap-2">
+        <a href="menu.html" class="sidebar-link active flex items-center gap-4 px-4 py-4 font-bold">
+            <span class="material-symbols-outlined">dashboard</span> Início
+        </a>
+        <a href="ocorrencia.html" class="sidebar-link flex items-center gap-4 px-4 py-4 text-outline font-medium">
+            <span class="material-symbols-outlined">chat</span> Atendimento
+        </a>
+        <a href="bd.html" class="sidebar-link flex items-center gap-4 px-4 py-4 text-outline font-medium">
+            <span class="material-symbols-outlined">folder_shared</span> Histórico
+        </a>
+    </nav>
+
+    <div class="p-4 border-t border-[#1f1f1f] flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-primary-gold/20">
+            <span class="material-symbols-outlined text-primary-gold">person</span>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-white uppercase">Operador 01</p>
+            <p class="text-[10px] text-primary-gold/60 uppercase">Nível de Acesso 01</p>
+        </div>
+    </div>
+</aside>
+
+<div class="flex-1 ml-64">
+    <header class="w-full sticky top-0 z-40 bg-black/80 backdrop-blur-md px-8 py-6 flex justify-between items-center border-b border-[#1f1f1f]">
+        <h2 class="text-xl font-bold uppercase tracking-widest text-primary-gold">Sistema de Gestão</h2>
+    </header>
+
+    <main class="p-8 max-w-6xl">
+        <div class="mb-12">
+            <span class="text-primary-gold font-bold tracking-widest uppercase text-xs mb-2 block">Administração</span>
+            <h2 class="text-6xl font-black text-white leading-none mb-4 uppercase">Monitoramento <br/><span class="text-primary-gold text-glow">Ativo</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="bg-surface-container-lowest border-l-4 border-primary-gold p-6 flex flex-col justify-between hover:bg-[#151515] transition-all group">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-primary-gold font-bold text-sm">#6767</span>
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-tighter">Crítica</span>
+                    </div>
+                    <h3 class="text-white text-xl font-bold mb-3 leading-tight uppercase italic">"Estão me excluindo no horário de trabalho"</h3>
+                    <p class="text-outline text-sm mb-6">Relato de isolamento social e exclusão sistemática das atividades laborais e comunicações da equipe.</p>
+                </div>
+                <a href="ocorrencia.html" class="w-full bg-primary-gold text-black text-center font-bold py-3 text-sm uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all">
+                    INICIAR ATENDIMENTO
+                </a>
+            </div>
+
+            <div class="bg-surface-container-lowest border-l-4 border-[#333] p-6 flex items-center justify-center border-dashed opacity-50">
+                <p class="text-outline text-xs uppercase font-bold">Aguardando nova ocorrência...</p>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+
+
+</body>
+</html>

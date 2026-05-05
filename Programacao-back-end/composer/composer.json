@@ -1,0 +1,18 @@
+{
+    "name": "ferreira/composer",
+    "description": "Teste do composer",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Ferreira\\Composer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Joao Luz"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^3.10"
+    }
+}

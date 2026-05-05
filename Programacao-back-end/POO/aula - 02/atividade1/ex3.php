@@ -27,7 +27,7 @@ class Moto extends Veiculo{
     }
 }
 
-$carro = new Carro();
+$carro = new Carro();x
 $carro->modelo = "Onix";
 $carro->marca = "Chevrolet";
 

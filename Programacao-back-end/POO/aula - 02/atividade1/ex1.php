@@ -7,7 +7,7 @@ class Pessoa {
 
 class Funcionario extends Pessoa {
     public $salario = 1500;
-}
+}   
 
 class Gerente extends Funcionario {
     public $departamento = "Vendas";

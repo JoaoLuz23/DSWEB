@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<style>
+.alto-contraste {
+  background: black !important;
+  color: yellow !important;
+}
+
+.alto-contraste * {
+  background: black !important;
+  color: yellow !important;
+  border-color: yellow !important;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+  font-size: 32px;
+}
+
+body {
+  font-family: 'Lexend', sans-serif;
+}
+</style>
+
+<script>
+// =======================
+// CONFIGURAÇÕES GLOBAIS
+// =======================
+
+window.onload = () => {
+  aplicarPreferencias();
+};
+
+// 🔥 aplica preferências
+function aplicarPreferencias() {
+
+  // CONTRASTE SEMPRE ATIVO
+  document.body.classList.add("alto-contraste");
+  localStorage.setItem("contraste", "alto");
+
+  // 🔥 FONTE GLOBAL (CORRETO)
+  const fonte = localStorage.getItem("fonte");
+
+  if (fonte) {
+    document.documentElement.style.fontSize = fonte + "px";
+  }
+}
+
+// 🔼 AUMENTAR FONTE (GLOBAL)
+function aumentarFonte() {
+  let fonte = parseInt(localStorage.getItem("fonte")) || 16;
+  fonte += 2;
+
+  localStorage.setItem("fonte", fonte);
+  document.documentElement.style.fontSize = fonte + "px";
+}
+
+// 🔽 DIMINUIR FONTE (GLOBAL)
+function diminuirFonte() {
+  let fonte = parseInt(localStorage.getItem("fonte")) || 16;
+  fonte -= 2;
+
+  if (fonte < 12) fonte = 12;
+
+  localStorage.setItem("fonte", fonte);
+  document.documentElement.style.fontSize = fonte + "px";
+}
+
+// 🔙 VOLTAR
+function voltarPagina() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = "index.html";
+  }
+}
+</script>
+
+</head>
+
+<!-- 🔥 CONTRASTE FORÇADO -->
+<body class="alto-contraste flex flex-col min-h-screen">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 w-full z-50 h-24 flex items-center justify-between px-6">
+
+<div class="flex items-center gap-4">
+
+<button onclick="voltarPagina()">
+  <span class="material-symbols-outlined">arrow_back</span>
+</button>
+
+<h2 class="text-2xl font-bold">Messages</h2>
+</div>
+
+<!-- ACESSIBILIDADE -->
+<div class="flex gap-2">
+
+<button onclick="aumentarFonte()" class="px-2 py-1 border rounded">
+A+
+</button>
+
+<button onclick="diminuirFonte()" class="px-2 py-1 border rounded">
+A-
+</button>
+
+</div>
+
+</header>
+
+<!-- CONTEÚDO -->
+<main class="flex-grow pt-32 pb-48 px-6 max-w-4xl mx-auto w-full flex flex-col gap-8">
+
+<section>
+<p class="text-2xl">Como posso ajudar você hoje?</p>
+</section>
+
+<section>
+<p class="text-2xl">Preciso de ajuda para ler este documento.</p>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex flex-col">
+
+<div class="w-full max-w-4xl mx-auto px-6 pb-6">
+<div class="p-4 rounded-xl shadow flex flex-col gap-4 border">
+
+<textarea id="chat-input"
+class="w-full border p-4 rounded-xl text-lg"
+placeholder="Digite sua mensagem..."></textarea>
+
+<button id="btnEnviar" class="p-4 rounded-xl font-bold border">
+Enviar
+</button>
+
+</div>
+</div>
+
+</footer>
+
+<!-- SCRIPT PRINCIPAL -->
+<script>
+const input = document.getElementById("chat-input");
+const botao = document.getElementById("btnEnviar");
+
+botao.addEventListener("click", () => {
+  const texto = input.value.toLowerCase().trim();
+
+  if (
+    texto.includes("uma velha caiu no setor a") ||
+    texto.includes("senhora caiu no setor a") ||
+    texto.includes("caiu no setor a")
+  ) {
+    window.location.href = "indexia.html";
+    return;
+  }
+//mudar para a pagina que esta com o ferreira ///
+  if (
+    texto.includes("estão me excluindo") ||
+    texto.includes("estou sendo excluido") ||
+    texto.includes("deficiência auditiva") ||
+    texto.includes("deficiencia auditiva")
+  ) {
+    window.location.href = "indexia2.html";
+    return;
+  }
+
+  alert("Mensagem não reconhecida. Tente novamente.");
+});
+</script>
+
+</body>
+</html>

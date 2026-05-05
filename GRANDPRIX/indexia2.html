@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<style>
+
+/* 🔥 CONTRASTE FORÇADO PRETO + AMARELO */
+body {
+  background: #000 !important;
+  color: #fcd400 !important;
+  font-family: 'Lexend', sans-serif;
+}
+
+.alto-contraste {
+  background: #000 !important;
+  color: #fcd400 !important;
+}
+
+.alto-contraste * {
+  background: #000 !important;
+  color: #fcd400 !important;
+  border-color: #fcd400 !important;
+}
+
+/* 🔘 ÍCONES */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+}
+
+/* 🔵 ANIMAÇÃO CENTRAL */
+.pulsate-custom {
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+body {
+  min-height: max(884px, 100dvh);
+}
+</style>
+
+</head>
+
+<body class="alto-contraste flex flex-col min-h-screen">
+
+<!-- HEADER -->
+<header class="flex justify-between items-center px-6 h-20 w-full bg-black text-[#fcd400] border-b border-yellow-400">
+
+<div class="flex items-center gap-4">
+  <span class="material-symbols-outlined text-[28px]">menu</span>
+  <span class="font-bold text-[22px]">VOICE ASSISTANT</span>
+</div>
+
+</header>
+
+<!-- CONTEÚDO -->
+<main class="flex-grow flex flex-col items-center justify-center px-8 text-center">
+
+<!-- ÍCONE -->
+<div class="w-64 h-64 bg-black border border-yellow-400 rounded-full flex items-center justify-center shadow-lg pulsate-custom mb-10">
+  <span class="material-symbols-outlined text-[120px] text-yellow-400">
+    psychology
+  </span>
+</div>
+
+<!-- TEXTO -->
+<h2 class="text-3xl font-bold mb-6">
+  Aguarde, estou buscando a melhor solução para você...
+</h2>
+
+<!-- ANIMAÇÃO -->
+<div class="flex gap-2">
+  <div class="w-3 h-3 bg-yellow-400 rounded-full animate-bounce"></div>
+  <div class="w-3 h-3 bg-yellow-400 rounded-full animate-bounce [animation-delay:-0.2s]"></div>
+  <div class="w-3 h-3 bg-yellow-400 rounded-full animate-bounce [animation-delay:-0.4s]"></div>
+</div>
+
+</main>
+
+<!-- ⏱️ REDIRECIONAMENTO -->
+<script>
+setTimeout(() => {
+  window.location.href = "indexsolu2.html";
+}, 7000);
+</script>
+
+</body>
+</html>

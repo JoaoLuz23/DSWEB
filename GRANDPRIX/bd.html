@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CENTRAL DE OCORRÊNCIAS - Banco de Dados</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#0e0e0e",
+                        "surface-container": "#111111",
+                        "primary-gold": "#FFD700",
+                        "text-muted": "#a0a0a0"
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Lexend', sans-serif; background-color: #000000; color: #ffffff; min-height: 100vh; }
+        .text-glow { text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+        .case-card { transition: all 0.3s ease; border: 1px solid #1f1f1f; }
+        .case-card:hover { transform: translateY(-5px); border-color: #FFD700; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        input, textarea { background-color: #151515 !important; border-color: #252525 !important; color: #FFD700 !important; }
+        input:focus, textarea:focus { border-color: #FFD700 !important; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
+    </style>
+</head>
+<body class="pb-24">
+
+<header class="fixed top-0 z-50 flex justify-between items-center w-full px-6 py-4 bg-[#000000] border-b-4 border-[#1f1f1f]">
+    <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary-gold text-3xl">shield</span>
+        <h1 class="text-2xl font-black text-primary-gold uppercase tracking-tight">CENTRAL DE OCORRÊNCIAS</h1>
+    </div>
+</header>
+
+<nav class="hidden md:flex fixed left-0 top-0 h-full z-40 flex flex-col w-72 bg-[#0a0a0a] pt-24 border-r border-[#1f1f1f]">
+    <div class="flex flex-col gap-1 px-2 mt-8">
+        <a href="menu.html" class="flex items-center gap-4 px-4 py-4 text-primary-gold opacity-70 hover:opacity-100 hover:bg-[#1a1a1a] transition-all duration-200">
+            <span class="material-symbols-outlined">dashboard</span> Início
+        </a>
+        <a href="ocorrencia.html" class="flex items-center gap-4 px-4 py-4 text-primary-gold opacity-70 hover:opacity-100 hover:bg-[#1a1a1a] transition-all duration-200">
+            <span class="material-symbols-outlined">chat</span> Atendimento
+        </a>
+        <a href="#" class="flex items-center gap-4 px-4 py-4 bg-primary-gold text-black font-bold">
+            <span class="material-symbols-outlined">history</span> Histórico
+        </a>
+    </div>
+</nav>
+
+<main class="md:ml-72 pt-32 px-6 md:px-12 max-w-7xl mx-auto">
+    <section class="mb-12">
+        <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4">
+            BANCO DE <span class="text-primary-gold text-glow">DADOS</span>
+        </h2>
+        
+        <div class="relative group max-w-3xl mt-8">
+            <input id="input-busca" class="block w-full text-lg py-6 pl-6 pr-8 transition-all" placeholder="PESQUISAR CASO OU CIDADE..." type="text"/>
+        </div>
+    </section>
+
+    <section class="mb-12 p-8 bg-surface-container border-l-4 border-primary-gold">
+        <h3 class="text-xl font-bold uppercase mb-6 tracking-widest text-primary-gold">Novo Registro</h3>
+        <form id="form-nova-ocorrencia" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" id="add-cidade" placeholder="CIDADE - UF" required class="p-4 rounded">
+            <input type="text" id="add-titulo" placeholder="TÍTULO DO CASO" required class="p-4 rounded">
+            <textarea id="add-descricao" placeholder="DESCRIÇÃO DA OCORRÊNCIA" required class="p-4 rounded md:col-span-2 h-24"></textarea>
+            <input type="text" id="add-solucao" placeholder="SOLUÇÃO APLICADA" required class="p-4 rounded md:col-span-1">
+            <button type="submit" class="bg-primary-gold text-black font-black uppercase hover:bg-white transition-all duration-300 py-4">
+                Registrar Ocorrência
+            </button>
+        </form>
+    </section>
+
+    <hr class="border-[#1f1f1f] mb-12">
+
+    <section id="lista-casos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <article class="case-card bg-surface-container relative p-8">
+            <div class="absolute left-0 top-0 h-full w-1 bg-primary-gold"></div>
+            <span class="text-[10px] font-bold uppercase text-primary-gold">SÃO PAULO - SP</span>
+            <h3 class="card-title text-xl font-bold mt-4 mb-2 uppercase">Obstrução de Calçada PCD</h3>
+            <p class="text-text-muted text-sm mb-6">Remoção de entulho e regularização de rampa de acesso na Unidade Centro.</p>
+            <div class="pt-4 border-t border-[#252525]">
+                <p class="text-white text-sm italic opacity-80">"Resolvido: Limpeza concluída."</p>
+            </div>
+        </article>
+
+        <article class="case-card bg-surface-container relative p-8">
+            <div class="absolute left-0 top-0 h-full w-1 bg-primary-gold"></div>
+            <span class="text-[10px] font-bold uppercase text-primary-gold">BRASÍLIA - DF</span>
+            <h3 class="card-title text-xl font-bold mt-4 mb-2 uppercase">Preconceito com deficiente</h3>
+            <p class="text-text-muted text-sm mb-6">Exclusao social com funcionario portador de surdez</p>
+            <div class="pt-4 border-t border-[#252525]">
+                <p class="text-white text-sm italic opacity-80">"Resolvido: Palestra ocorrida e advertencia com os envolvidos."</p>
+            </div>
+        </article>
+
+        <article class="case-card bg-surface-container relative p-8">
+            <div class="absolute left-0 top-0 h-full w-1 bg-primary-gold"></div>
+            <span class="text-[10px] font-bold uppercase text-primary-gold">CURITIBA - PR</span>
+            <h3 class="card-title text-xl font-bold mt-4 mb-2 uppercase">Piso Podotátil Solto</h3>
+            <p class="text-text-muted text-sm mb-6">Reparo em 15 metros de sinalização tátil no corredor principal.</p>
+            <div class="pt-4 border-t border-[#252525]">
+                <p class="text-white text-sm italic opacity-80">"Resolvido: Fixação reforçada."</p>
+            </div>
+        </article>
+
+    </section>
+</main>
+
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-20 bg-black border-t-2 border-[#1f1f1f] z-50">
+    <a href="menu.html" class="flex flex-col items-center text-primary-gold opacity-50">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="text-[10px] font-bold">INÍCIO</span>
+    </a>
+    <a href="ocorrencia.html" class="flex flex-col items-center text-primary-gold opacity-50">
+        <span class="material-symbols-outlined">forum</span>
+        <span class="text-[10px] font-bold">CHAT</span>
+    </a>
+    <a href="#" class="flex flex-col items-center text-primary-gold">
+        <span class="material-symbols-outlined">manage_search</span>
+        <span class="text-[10px] font-bold">HISTÓRICO</span>
+    </a>
+</nav>
+
+<script>
+    const inputBusca = document.getElementById('input-busca');
+    const formOcorrencia = document.getElementById('form-nova-ocorrencia');
+    const listaCasos = document.getElementById('lista-casos');
+
+    // Função para filtrar cards (atualizada para pegar itens novos)
+    function filtrarCasos() {
+        const termo = inputBusca.value.toLowerCase();
+        const cards = document.querySelectorAll('.case-card');
+        cards.forEach(card => {
+            const titulo = card.querySelector('.card-title').innerText.toLowerCase();
+            const cidade = card.querySelector('span').innerText.toLowerCase();
+            card.style.display = (titulo.includes(termo) || cidade.includes(termo)) ? 'block' : 'none';
+        });
+    }
+
+    inputBusca.addEventListener('input', filtrarCasos);
+
+    // Função para adicionar novo card
+    formOcorrencia.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Capturar valores
+        const cidade = document.getElementById('add-cidade').value.toUpperCase();
+        const titulo = document.getElementById('add-titulo').value;
+        const descricao = document.getElementById('add-descricao').value;
+        const solucao = document.getElementById('add-solucao').value;
+
+        // Criar elemento do card
+        const novoCard = document.createElement('article');
+        novoCard.className = 'case-card bg-surface-container relative p-8';
+        novoCard.innerHTML = `
+            <div class="absolute left-0 top-0 h-full w-1 bg-primary-gold"></div>
+            <span class="text-[10px] font-bold uppercase text-primary-gold">${cidade}</span>
+            <h3 class="card-title text-xl font-bold mt-4 mb-2 uppercase">${titulo}</h3>
+            <p class="text-text-muted text-sm mb-6">${descricao}</p>
+            <div class="pt-4 border-t border-[#252525]">
+                <p class="text-white text-sm italic opacity-80">"Resolvido: ${solucao}"</p>
+            </div>
+        `;
+
+        // Inserir no topo da lista
+        listaCasos.prepend(novoCard);
+
+        // Limpar formulário e resetar busca
+        formOcorrencia.reset();
+        filtrarCasos(); 
+    });
+</script>
+
+</body>
+</html>

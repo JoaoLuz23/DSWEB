@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Voice Assistant - Confirmation</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<style>
+
+.alto-contraste {
+  background: black !important;
+  color: yellow !important;
+}
+
+.alto-contraste * {
+  background: black !important;
+  color: yellow !important;
+  border-color: yellow !important;
+}
+
+body {
+  transition: all 0.3s;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+}
+
+.mic-pulse {
+  box-shadow: 0 0 0 0 rgba(252, 212, 0, 0.7);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(252, 212, 0, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 40px rgba(252, 212, 0, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(252, 212, 0, 0); }
+}
+
+/* 🎯 ALTO CONTRASTE */
+.alto-contraste {
+  background-color: black !important;
+  color: yellow !important;
+}
+
+.alto-contraste header {
+  background-color: black !important;
+  color: yellow !important;
+}
+
+.alto-contraste button {
+  background-color: yellow !important;
+  color: black !important;
+}
+</style>
+
+</head>
+
+<script>
+// =======================
+// CONFIGURAÇÕES GLOBAIS
+// =======================
+
+// aplica ao carregar a página
+window.onload = () => {
+  aplicarPreferencias();
+};
+
+// aplica contraste + fonte
+function aplicarPreferencias() {
+  const contraste = localStorage.getItem("contraste");
+  const fonte = localStorage.getItem("fonte");
+
+  // CONTRASTE
+  if (contraste === "alto") {
+    document.body.classList.add("alto-contraste");
+  } else {
+    document.body.classList.remove("alto-contraste");
+  }
+
+  // FONTE
+  if (fonte) {
+    document.body.style.fontSize = fonte + "px";
+  }
+}
+
+// =======================
+// BOTÕES
+// =======================
+
+// alternar contraste
+function toggleContraste() {
+  const atual = localStorage.getItem("contraste");
+
+  if (atual === "alto") {
+    localStorage.setItem("contraste", "normal");
+  } else {
+    localStorage.setItem("contraste", "alto");
+  }
+
+  aplicarPreferencias();
+}
+
+// aumentar fonte
+function aumentarFonte() {
+  let fonte = parseInt(localStorage.getItem("fonte")) || 16;
+  fonte += 2;
+  localStorage.setItem("fonte", fonte);
+  aplicarPreferencias();
+}
+
+// diminuir fonte
+function diminuirFonte() {
+  let fonte = parseInt(localStorage.getItem("fonte")) || 16;
+  fonte -= 2;
+  if (fonte < 12) fonte = 12;
+  localStorage.setItem("fonte", fonte);
+  aplicarPreferencias();
+
+const btnSim = document.querySelector('button.bg-secondary-container');
+const statusTexto = document.querySelector('p.text-primary');
+
+// Verifica se o navegador/app suporta voz
+const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (Recognition) {
+  const recognition = new Recognition();
+  recognition.lang = 'pt-BR';
+  recognition.continuous = false;
+
+  btnSim.addEventListener('click', () => {
+    recognition.start();
+    statusTexto.innerText = "OUVINDO...";
+  });
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    statusTexto.innerText = "VOCÊ DISSE: " + transcript;
+    
+    // Aqui você pode mandar o texto para uma IA ou fazer outra ação
+    alert("Você disse: " + transcript);
+  };
+
+  recognition.onerror = (event) => {
+    statusTexto.innerText = "ERRO NO MIC: " + event.error;
+  };
+} else {
+  alert("Este dispositivo não suporta reconhecimento de voz.");
+}
+
+}
+</script>
+
+<body class="bg-gray-100 flex flex-col min-h-screen" id="body">
+
+
+
+<main id="conteudo" class="flex-grow flex flex-col items-center justify-center text-center px-6">
+
+<h2 class="text-4xl font-bold mb-10">Deseja usar o chat de voz?</h2>
+
+<div class="w-40 h-40 bg-[#001736] rounded-full flex items-center justify-center mic-pulse mb-10">
+<span class="material-symbols-outlined text-yellow-400 text-6xl">mic</span>
+</div>
+
+<div class="flex flex-col gap-4 w-full max-w-sm">
+<button id="btnSim" class="bg-yellow-400 text-black text-2xl font-bold py-6 rounded-2xl">
+SIM
+</button>
+
+<button id="btnNao" class="bg-white border text-2xl py-6 rounded-2xl">
+NÃO
+</button>
+</div>
+
+<p id="transcricao" class="mt-10 text-lg text-gray-600 italic">
+Ouvindo...
+</p>
+
+</main>
+
+<script>
+const transcricao = document.getElementById("transcricao");
+const btnSim = document.getElementById("btnSim");
+const btnNao = document.getElementById("btnNao");
+const body = document.getElementById("body");
+const conteudo = document.getElementById("conteudo");
+
+let tamanhoFonte = 1;
+
+// 🎯 BOTÃO AUMENTAR FONTE
+function alterarFonte() {
+  tamanhoFonte += 0.1;
+  conteudo.style.fontSize = tamanhoFonte + "em";
+}
+
+// 🎯 BOTÃO CONTRASTE
+function alternarContraste() {
+  body.classList.toggle("alto-contraste");
+}
+
+// 🎯 CLIQUES
+btnSim.addEventListener("click", () => {
+  window.location.href = "indexsim.html";
+});
+
+btnNao.addEventListener("click", () => {
+  window.location.href = "indexnao.html";
+});
+
+// 🎤 VOZ
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+  alert("Seu navegador não suporta reconhecimento de voz");
+} else {
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "pt-BR";
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  let textoFinal = "";
+  let redirecionado = false;
+
+  function iniciarReconhecimento() {
+    try {
+      recognition.start();
+    } catch (e) {}
+  }
+
+  window.addEventListener("load", iniciarReconhecimento);
+
+  recognition.onresult = (event) => {
+    let textoParcial = "";
+
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript.toLowerCase();
+
+      if (event.results[i].isFinal) {
+        textoFinal += transcript + " ";
+
+        if (!redirecionado && transcript.includes("sim")) {
+          redirecionado = true;
+          setTimeout(() => {
+            window.location.href = "indexsim.html";
+          }, 500);
+        }
+
+        if (!redirecionado && (transcript.includes("não") || transcript.includes("nao"))) {
+          redirecionado = true;
+          setTimeout(() => {
+            window.location.href = "indexnao.html";
+          }, 500);
+        }
+
+      } else {
+        textoParcial += transcript;
+      }
+    }
+
+    transcricao.textContent = textoFinal + textoParcial;
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Erro:", event.error);
+  };
+
+  recognition.onend = () => {
+    if (!redirecionado) {
+      iniciarReconhecimento();
+    }
+  };
+}
+</script>
+
+</body>
+</html>
