@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Minha Mãe Especial</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Georgia', serif;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+
+        /* Fundo padrão */
+        .container-inicial {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff5f7 0%, #fce4ec 100%);
+            transition: opacity 1s ease;
+        }
+
+        .cartao {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 45px rgba(233, 30, 99, 0.15);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1.8em;
+            color: #ad1457;
+            margin-bottom: 30px;
+        }
+
+        #texto-container {
+            min-height: 200px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #texto-mensagem {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #5d4037;
+            transition: opacity 0.4s ease;
+        }
+
+        button {
+            margin-top: 30px;
+            background: #d81b60;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: #ad1457;
+            transform: scale(1.05);
+        }
+
+        /* Estilos da Foto Final */
+        #container-foto-final {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: black;
+        }
+
+        #foto-final {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Mostra a foto inteira sem cortes */
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        #superposicao-texto {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            color: white;
+            padding: 60px 20px;
+            font-size: 1.5em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .progresso {
+            font-size: 0.9em;
+            color: #c2185b;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-inicial" id="conteudo-inicial">
+        <div class="cartao">
+            <div class="progresso" id="contador">Início</div>
+            <h1>Para você, Mãe ❤️</h1>
+            
+            <div id="texto-container">
+                <p id="texto-mensagem">Toque no botão abaixo para ler o que preparei para você com todo o meu carinho...</p>
+            </div>
+            
+            <button id="btnProxima">Abrir Surpresa</button>
+        </div>
+    </div>
+
+    <div id="container-foto-final">
+        <!-- Verifique se o nome abaixo é EXATAMENTE igual ao do seu arquivo -->
+        <img id="foto-final" src="diadasmae.jpeg" alt="Nossa Foto">
+        <div id="superposicao-texto">
+            Eu te amo daqui até o infinito! <br> Feliz Dia das Mães! ❤️
+        </div>
+    </div>
+
+    <script>
+        const mensagens = [
+            "Mãe, quando paro para pensar em tudo o que você já fez por mim, percebo que não existem palavras suficientes no dicionário. Desde os meus primeiros passos até os meus desafios de hoje, sua mão sempre esteve lá para me segurar, me guiar e me mostrar o caminho certo.",
+            "Obrigado por ser essa fortaleza silenciosa que aguenta todas as tempestades para manter nossa família em paz. Seu sacrifício muitas vezes passa despercebido, mas eu vejo cada detalhe, cada cuidado e cada noite mal dormida. Você é a definição de amor puro.",
+            "Ter você como mãe é ter a certeza de que nunca estarei sozinho no mundo. Seu abraço é o único lugar onde o tempo para e todos os problemas parecem pequenos. Você me ensinou a ser uma pessoa melhor apenas sendo quem você é.",
+            "Que este Dia das Mães seja apenas um reflexo do amor que você espalha todos os dias do ano. Que você receba em dobro toda a alegria que já me deu e que possamos celebrar muitos outros momentos felizes lado a lado.",
+            "Aqui está uma das minhas lembranças favoritas ao seu lado. Uma imagem que diz muito sobre nós e sobre a felicidade que você me proporciona... Te amo!"
+        ];
+
+        let indice = 0;
+        const textoTela = document.getElementById('texto-mensagem');
+        const botao = document.getElementById('btnProxima');
+        const contador = document.getElementById('contador');
+        const conteudoInicial = document.getElementById('conteudo-inicial');
+        const containerFotoFinal = document.getElementById('container-foto-final');
+        const fotoFinal = document.getElementById('foto-final');
+        const textoSuperposto = document.getElementById('superposicao-texto');
+
+        botao.onclick = function() {
+            if (indice < mensagens.length) {
+                // Efeito de troca de texto
+                textoTela.style.opacity = 0;
+                
+                setTimeout(() => {
+                    textoTela.innerText = mensagens[indice];
+                    textoTela.style.opacity = 1;
+                    indice++;
+                    
+                    contador.innerText = `${indice} / ${mensagens.length}`;
+                    botao.innerText = "Continuar lendo...";
+
+                    if (indice === mensagens.length) {
+                        botao.innerText = "Ver Surpresa Final ➔";
+                    }
+                }, 400);
+            } else {
+                // Acabaram as mensagens, mostra a foto
+                iniciarTransicao();
+            }
+        };
+
+        function iniciarTransicao() {
+            conteudoInicial.style.opacity = 0;
+            
+            setTimeout(() => {
+                conteudoInicial.style.display = 'none';
+                containerFotoFinal.style.display = 'block';
+                
+                // Pequeno delay para a animação de fade-in da foto funcionar
+                setTimeout(() => {
+                    fotoFinal.style.opacity = 1;
+                    textoSuperposto.style.opacity = 1;
+                }, 100);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
